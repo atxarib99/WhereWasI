@@ -59,6 +59,9 @@ class FileIO:
                 p.lastWorkedOn = split[1]
             elif split[0] == "Description":
                 p.projectDescription = split[1]
+            elif split[0] == "Path":
+                p.projectPath = split[1]
+                p.gitLog = self.getLogFile(p.projectPath)
             elif split[0] == "WhereDidILeaveIt":
                 p.whereDidILeaveIt = split[1]
             elif split[0] == "NextSteps":
@@ -82,6 +85,9 @@ class FileIO:
                 p.projectName = split[1]
             elif split[0] == "LastWorkedOn":
                 p.lastWorkedOn = split[1]
+            elif split[0] == "Path":
+                p.projectPath = split[1]
+                p.gitLog = self.getLogFile(p.projectPath)
             elif split[0] == "Description":
                 p.projectDescription = split[1]
             elif split[0] == "WhereDidILeaveIt":
@@ -97,6 +103,7 @@ class FileIO:
         p = Project()
         p.projectName = input("ProjectName: ")
         p.projectDescription = input("Description: ")
+        p.projectPath = input("Absolute Path: ")
         dt = str(datetime.datetime.now().isoformat()).replace(":", ".")
         p.lastWorkedOn = input("LastWorkedOn [" + dt + "]: ")
         if p.lastWorkedOn == "":
@@ -106,6 +113,7 @@ class FileIO:
         f = open(self.installationDirectory + os.sep + p.projectName + ".myproj", 'w+')
         f.write("ProjectName:" + p.projectName + "\n")
         f.write("Description:" + p.projectDescription + "\n")
+        f.write("Path:" + p.projectPath + "\n")
         f.write("LastWorkedOn:" + p.lastWorkedOn + "\n")
         f.write("WhereDidILeaveIt:" + p.whereDidILeaveIt + "\n")
         f.write("NextSteps:" + p.nextSteps + "\n")
@@ -127,6 +135,9 @@ class FileIO:
                 newp.projectDescription = input("Description[" + p.projectDescription[0:10].replace("\n", "") + "...]: ")
                 if newp.projectDescription == "":
                     newp.projectDescription = p.projectDescription
+                newp.projectPath = input("Path[" + p.projectPath.replace("\n", "") + "...]: ")
+                if newp.projectPath == "":
+                    newp.projectPath = p.projectPath
                 dt = str(datetime.datetime.now().isoformat()).replace(":", ".")
                 newp.lastWorkedOn = input("LastWorkedOn[" + p.lastWorkedOn.replace("\n", "") + "]: ")
                 if newp.lastWorkedOn == "":
@@ -140,6 +151,7 @@ class FileIO:
                 f = open(self.installationDirectory + os.sep + file, "w")
                 f.write("ProjectName:" + newp.projectName + "\n")
                 f.write("Description:" + newp.projectDescription + "\n")
+                f.write("Path:" + newp.projectPath + "\n")
                 f.write("LastWorkedOn:" + newp.lastWorkedOn + "\n")
                 f.write("WhereDidILeaveIt:" + newp.whereDidILeaveIt + "\n")
                 f.write("NextSteps:" + newp.nextSteps + "\n")
@@ -164,6 +176,22 @@ class FileIO:
                 pname = pname + ".myproj"
             if file == pname:
                 os.remove(self.installationDirectory + os.sep + pname)
+
+    def getLogFile(self, path):
+        pathToHead = path.replace("\n", "") + "/.git/logs/HEAD"
+        if not (os.path.exists(pathToHead) and os.path.isfile(pathToHead)):
+            return ""
+        o = open(pathToHead, "r")
+        lineCount = len(o.readlines())
+        o.seek(0)
+        while lineCount > 5:
+            o.readline()
+            lineCount -= 1
+        s = ""
+        while lineCount > 0:
+            s += o.readline().split("\t")[1]
+            lineCount -= 1
+        return s
 
 
 
