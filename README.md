@@ -3,12 +3,12 @@
  
  How do I install it?
  
- Easy! Git clone this project and then:
- 
+ Easy! Git clone this project, then:
+```
 sudo sh Installer.sh
-
+```
  Some commands: (hint: use "wherewasi help")
- 
+ ```
  wherewasi: outputs all projects currently stored
  
  wherewasi list: lists the name of all projects
@@ -23,3 +23,4 @@ sudo sh Installer.sh
  
  wherewasi finish project_name:    Archives a project
  wherewasi complete project_name:    Archives a project
+```
