@@ -21,6 +21,16 @@ def main():
         elif arglen == 3 and sys.argv[2] == "list":
             # list all project names
             x.list()
+        elif arglen == 3 and (sys.argv[2] == "help" or sys.argv[2] == "-help" or sys.argv[2] == "-h"):
+            print("Command:\tDescription\n")
+            print("list:\tShows all records of active projects\n")
+            print("new:\tCreates a new project")
+            print("create:\tCreates a new projects\n")
+            print("update project_name:\tUpdates a project with new information\n")
+            print("delete project_name:\tDeletes a project")
+            print("remove project_name:\tDeletes a project\n")
+            print("finish project_name:\tArchives a project")
+            print("complete project_name:\tArchives a project")
         elif arglen == 3 and (sys.argv[2] == "new" or sys.argv[2] == "create"):
             x.createNew()
         elif arglen == 4 and sys.argv[2] == "update":
