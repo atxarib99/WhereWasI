@@ -110,7 +110,7 @@ class FileIO:
             p.lastWorkedOn = dt
         p.whereDidILeaveIt = input("WhereDidILeaveIt: ")
         p.nextSteps = input("NextSteps: ")
-        f = open(self.installationDirectory + os.sep + p.projectName + ".myproj", 'w+')
+        f = open(self.installationDirectory + p.projectName + ".myproj", 'w+')
         f.write("ProjectName:" + p.projectName + "\n")
         f.write("Description:" + p.projectDescription + "\n")
         f.write("Path:" + p.projectPath + "\n")
