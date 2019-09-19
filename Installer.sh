@@ -51,6 +51,7 @@ then
 fi
 
 echo "#!/bin/bash" > $FILENAME
-echo "python $actualdir/Main.py $actualdir/files/ \$@" > $FILENAME
+echo "python3 $actualdir/Main.py $actualdir/files/ \$@" > $FILENAME
 mv $FILENAME "/usr/local/bin/$FILENAME"
-chmod +x "/usr/local/bin/$FILENAME"
+sudo chmod +x "/usr/local/bin/$FILENAME"
+sudo chmod a+rw "$actualdir/files"
