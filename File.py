@@ -28,7 +28,7 @@ class FileIO:
             # if the file is a .myproj file
             if file.endswith(".myproj"):
                 for name in names:
-                    if file == name:
+                    if file == name or (name + ".myproj") == file:
                         # read and output
                         self.readAndPrintFile(self.installationDirectory + os.sep + file)
                         break
