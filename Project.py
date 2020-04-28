@@ -1,3 +1,5 @@
+import os
+
 # definition of a project object
 class Project:
     projectName = "Name"
@@ -9,7 +11,12 @@ class Project:
     nextSteps = "What to do next goes here"
 
     def __str__(self):
-        s = "Project Name:\t\t" + self.projectName + "\n"
+        rows, columns = os.popen('stty size', 'r').read().split()
+        s = ""
+        for i in range(int(columns)):
+                s += "="
+        s += "\n"
+        s += "Project Name:\t\t" + self.projectName + "\n"
         s += "Description:\t\t" + self.projectDescription + "\n"
         s += "Path:\t\t\t" + self.projectPath + "\n"
         s += "Last worked on:\t\t" + self.lastWorkedOn + "\n"
@@ -17,4 +24,7 @@ class Project:
             s += "Last 5 git logs:\t" + self.gitLog.replace("\n", "\n\t\t\t") + "\n"
         s += "Where Did I Leave It:\t" + self.whereDidILeaveIt + "\n"
         s += "Next Steps:\t\t" + self.nextSteps + "\n\n"
+        for i in range(int(columns)):
+                s += "="
+        s += "\n"
         return s
