@@ -104,6 +104,9 @@ class FileIO:
         p.projectName = input("ProjectName: ")
         p.projectDescription = input("Description: ")
         p.projectPath = input("Absolute Path: ")
+        #if you get "." then input current path
+        if p.projectPath == '.':
+            p.projectPath = os.getcwd()
         dt = str(datetime.datetime.now().isoformat()).replace(":", ".")
         p.lastWorkedOn = input("LastWorkedOn [" + dt + "]: ")
         if p.lastWorkedOn == "":
